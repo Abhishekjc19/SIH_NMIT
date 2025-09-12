@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Logo } from '@/components/ui/logo';
+import { useEffect, useState } from 'react';
 
 const navItems = [
   { href: '/studio', label: 'My Courses', icon: Clapperboard },
@@ -20,6 +21,11 @@ export default function StudioLayout({
 }) {
   const pathname = usePathname();
   const isMobile = useIsMobile();
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   const sidebarContent = (
     <nav className="flex flex-col gap-2">
@@ -38,6 +44,25 @@ export default function StudioLayout({
       ))}
     </nav>
   );
+
+  if (!hasMounted) {
+     return (
+        <div className="container mx-auto px-4 py-8">
+            <div className="grid grid-cols-1 md:grid-cols-[250px_1fr] gap-8">
+                <aside className="hidden md:block">
+                    <div className="flex flex-col gap-4">
+                    <h2 className="text-lg font-semibold flex items-center gap-2">
+                        <UserCog className="w-6 h-6" />
+                        Instructor Studio
+                    </h2>
+                    {sidebarContent}
+                    </div>
+                </aside>
+                <main>{children}</main>
+            </div>
+        </div>
+     )
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
