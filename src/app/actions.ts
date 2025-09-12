@@ -48,7 +48,7 @@ export async function generateRecommendationsAction(
         recommendations: result.courseRecommendations,
       };
     } else {
-      return { message: 'Could not generate recommendations. Please try refining your input.' };
+      return { message: 'We couldn’t generate recommendations based on your input. Please try again with more details.' };
     }
   } catch (error) {
     console.error(error);

@@ -53,7 +53,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
         </div>
       </div>
       
-      <div className="sticky top-16 z-40 lg:hidden bg-card/10 backdrop-blur-sm py-4">
+      <div className="sticky top-16 z-40 lg:hidden bg-primary py-4">
           <div className="container mx-auto px-4">
               <div className="relative aspect-video">
                 <Image src={course.imageUrl} alt={course.title} fill className="object-cover rounded-md" data-ai-hint="course thumbnail"/>
