@@ -18,7 +18,10 @@ import { Menu, Search, UserCircle } from 'lucide-react';
 import { Logo } from '../ui/logo';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { onAuthStateChanged, signOut, User } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
+import { useToast } from '@/hooks/use-toast';
 
 const navLinks = [
   { href: '/courses', label: 'Courses' },
@@ -27,9 +30,29 @@ const navLinks = [
 
 export function Header() {
   const isMobile = useIsMobile();
-  // TODO: Replace with actual authentication state
-  const [isAuthenticated, setIsAuthenticated] = React.useState(true);
+  const [user, setUser] = useState<User | null>(null);
+  const { toast } = useToast();
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Error signing out: ', error);
+      toast({
+        variant: 'destructive',
+        title: 'Logout Failed',
+        description: 'There was a problem signing out. Please try again.',
+      });
+    }
+  };
 
   const navContent = (
     <>
@@ -68,7 +91,7 @@ export function Header() {
             <Label htmlFor="data-saver" className="text-sm">Data Saver</Label>
           </div>
 
-          {isAuthenticated ? (
+          {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
@@ -86,7 +109,7 @@ export function Header() {
                   <Link href="/studio">Instructor Studio</Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => setIsAuthenticated(false)}>Log Out</DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>Log Out</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
@@ -112,7 +135,7 @@ export function Header() {
                     <span className="sr-only">ShikshaLite Home</span>
                   </Link>
                   <nav className="flex flex-col gap-2">{navContent}</nav>
-                   {!isAuthenticated && (
+                   {!user && (
                     <div className="flex flex-col gap-2 mt-4 border-t pt-4">
                         <Button variant="ghost" asChild><Link href="/login">Login</Link></Button>
                         <Button asChild><Link href="/signup">Sign Up</Link></Button>

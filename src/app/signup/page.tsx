@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Logo } from '@/components/ui/logo';
+import { GoogleSignInButton } from '@/components/auth/google-signin-button';
 
 export default function SignupPage() {
   return (
@@ -17,7 +18,7 @@ export default function SignupPage() {
           <CardDescription>Enter your information to create an account</CardDescription>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4">
+          <div className="space-y-4">
             <div className="space-y-2">
                 <Label htmlFor="full-name">Full Name</Label>
                 <Input id="full-name" placeholder="John Doe" required />
@@ -33,10 +34,8 @@ export default function SignupPage() {
             <Button type="submit" className="w-full">
               Create Account
             </Button>
-            <Button variant="outline" className="w-full">
-              Sign up with Google
-            </Button>
-          </form>
+            <GoogleSignInButton />
+          </div>
           <div className="mt-4 text-center text-sm">
             Already have an account?{' '}
             <Link href="/login" className="underline">
