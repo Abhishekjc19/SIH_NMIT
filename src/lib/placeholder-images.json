@@ -1,3 +1,70 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "course-1",
+      "description": "Placeholder for web development course",
+      "imageUrl": "https://picsum.photos/seed/course1/600/400",
+      "imageHint": "web development"
+    },
+    {
+      "id": "course-2",
+      "description": "Placeholder for data science course",
+      "imageUrl": "https://picsum.photos/seed/course2/600/400",
+      "imageHint": "data science"
+    },
+    {
+      "id": "course-3",
+      "description": "Placeholder for marketing course",
+      "imageUrl": "https://picsum.photos/seed/course3/600/400",
+      "imageHint": "digital marketing"
+    },
+    {
+      "id": "course-4",
+      "description": "Placeholder for design course",
+      "imageUrl": "https://picsum.photos/seed/course4/600/400",
+      "imageHint": "graphic design"
+    },
+    {
+      "id": "course-5",
+      "description": "Placeholder for project management course",
+      "imageUrl": "https://picsum.photos/seed/course5/600/400",
+      "imageHint": "project management"
+    },
+    {
+      "id": "course-6",
+      "description": "Placeholder for machine learning course",
+      "imageUrl": "https://picsum.photos/seed/course6/600/400",
+      "imageHint": "machine learning"
+    },
+    {
+      "id": "course-7",
+      "description": "Placeholder for mobile app development course",
+      "imageUrl": "https://picsum.photos/seed/course7/600/400",
+      "imageHint": "app development"
+    },
+    {
+      "id": "course-8",
+      "description": "Placeholder for business analytics course",
+      "imageUrl": "https://picsum.photos/seed/course8/600/400",
+      "imageHint": "business analytics"
+    },
+    {
+      "id": "instructor-1",
+      "description": "Avatar for Jane Doe",
+      "imageUrl": "https://picsum.photos/seed/instructor1/100/100",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "instructor-2",
+      "description": "Avatar for John Smith",
+      "imageUrl": "https://picsum.photos/seed/instructor2/100/100",
+      "imageHint": "man portrait"
+    },
+    {
+      "id": "instructor-3",
+      "description": "Avatar for Emily White",
+      "imageUrl": "https://picsum.photos/seed/instructor3/100/100",
+      "imageHint": "person portrait"
+    }
+  ]
 }
