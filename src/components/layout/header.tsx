@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -64,7 +65,7 @@ export function Header() {
       ))}
     </>
   );
-
+  
   if (!hasMounted) {
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-card shadow-sm">
