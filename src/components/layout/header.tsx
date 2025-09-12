@@ -16,12 +16,11 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Search, UserCircle } from 'lucide-react';
 import { Logo } from '../ui/logo';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { cn } from '@/lib/utils';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { useToast } from '@/hooks/use-toast';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const navLinks = [
   { href: '/courses', label: 'Courses' },
@@ -32,8 +31,10 @@ export function Header() {
   const isMobile = useIsMobile();
   const [user, setUser] = useState<User | null>(null);
   const { toast } = useToast();
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
+    setHasMounted(true);
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
@@ -63,6 +64,21 @@ export function Header() {
       ))}
     </>
   );
+
+  if (!hasMounted) {
+    return (
+        <header className="sticky top-0 z-50 w-full border-b bg-card shadow-sm">
+            <div className="container mx-auto flex h-16 items-center px-4">
+                 <div className="flex items-center gap-6">
+                    <Link href="/">
+                        <Logo className="h-6 w-auto" />
+                        <span className="sr-only">ShikshaLite Home</span>
+                    </Link>
+                </div>
+            </div>
+        </header>
+    );
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card shadow-sm">
