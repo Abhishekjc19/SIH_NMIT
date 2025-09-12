@@ -16,11 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
-      </head>
+      {/*
+        The <head> and <meta> tags are managed by Next.js via the metadata object.
+        Font links should be managed through a font utility or directly in globals.css if needed.
+        For simplicity and to resolve HMR issues, we let Next.js control the head.
+      */}
       <body className="font-body antialiased flex flex-col min-h-screen">
         <Header />
         <main className="flex-grow">{children}</main>
