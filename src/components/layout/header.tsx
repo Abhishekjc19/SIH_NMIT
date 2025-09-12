@@ -75,7 +75,7 @@ export function Header() {
             <Logo className="h-6 w-auto" />
             <span className="sr-only">ShikshaLite Home</span>
           </Link>
-          <nav className={cn("hidden md:flex items-center gap-2", !hasMounted || isMobile ? 'invisible' : 'visible')}>
+          <nav className={cn("hidden md:flex items-center gap-2", !hasMounted ? 'invisible' : 'visible')}>
             {navContent}
           </nav>
         </div>
