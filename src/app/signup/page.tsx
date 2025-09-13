@@ -1,4 +1,5 @@
 
+"use client";
 'use client';
 
 import Link from 'next/link';
@@ -25,37 +26,31 @@ export default function SignupPage() {
   const handleSignup = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      // Update user profile with full name
-      await updateProfile(user, {
-        displayName: fullName,
+      const res = await fetch('http://localhost:3001/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: email, password }),
       });
-
-      toast({
-        title: 'Account Created',
-        description: "You've successfully signed up!",
-      });
-      
-      // Redirect to dashboard after successful signup
-      router.push('/dashboard');
-
-    } catch (error: any) {
-      console.error('Error signing up: ', error);
-      let errorMessage = 'Failed to create an account. Please try again.';
-      if (error.code === 'auth/email-already-in-use') {
-        errorMessage = 'This email is already in use. Please try another one.';
-      } else if (error.code === 'auth/weak-password') {
-        errorMessage = 'The password is too weak. Please choose a stronger password.';
+      const data = await res.json();
+      if (res.ok) {
+        toast({
+          title: 'Account Created',
+          description: "You've successfully signed up!",
+        });
+        router.push('/dashboard');
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Signup Error',
+          description: data.error || 'Failed to create an account. Please try again.',
+        });
       }
-
+    } catch (error: any) {
       toast({
         variant: 'destructive',
         title: 'Signup Error',
-        description: errorMessage,
+        description: error.message || 'Failed to create an account. Please try again.',
       });
     } finally {
       setIsLoading(false);
